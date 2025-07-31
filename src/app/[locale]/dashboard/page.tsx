@@ -7,8 +7,11 @@ import Link from "next/link"
 import { LogOut, Plus, User, Settings } from "lucide-react"
 import { SignOutButton } from "@/components/auth/sign-out-button"
 import { Post } from "@prisma/client"
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 export default async function DashboardPage() {
+  const t = await getTranslations()
   const session = await getServerSession(authOptions)
 
   if (!session) {
@@ -36,7 +39,7 @@ export default async function DashboardPage() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Dashboard
+                {t('navigation.dashboard')}
               </h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -59,10 +62,10 @@ export default async function DashboardPage() {
           <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg mb-6">
             <div className="px-4 py-5 sm:p-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                Welcome back, {user?.name || "User"}!
+                {t('dashboard.welcomeBack', { name: user?.name || t('common.user') })}!
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Here&apos;s what&apos;s happening with your account today.
+                {t('dashboard.todayOverview')}
               </p>
             </div>
           </div>
@@ -78,7 +81,7 @@ export default async function DashboardPage() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Total Users
+                        {t('dashboard.totalUsers')}
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-white">
                         {totalUsers}
@@ -98,7 +101,7 @@ export default async function DashboardPage() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Total Posts
+                        {t('dashboard.totalPosts')}
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-white">
                         {totalPosts}
@@ -118,7 +121,7 @@ export default async function DashboardPage() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
-                        Your Posts
+                        {t('dashboard.yourPosts')}
                       </dt>
                       <dd className="text-lg font-medium text-gray-900 dark:text-white">
                         {user?.posts.length || 0}
@@ -134,17 +137,17 @@ export default async function DashboardPage() {
           <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
               <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-                Recent Posts
+                {t('dashboard.recentPosts')}
               </h3>
               <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-                Your latest blog posts and updates.
+                {t('dashboard.latestPosts')}
               </p>
             </div>
             <ul className="divide-y divide-gray-200 dark:divide-gray-700">
               {user?.posts.length === 0 ? (
                 <li className="px-4 py-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    No posts yet. Create your first post!
+                    {t('dashboard.noPosts')}
                   </p>
                 </li>
               ) : (
@@ -170,7 +173,7 @@ export default async function DashboardPage() {
                               : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
                           }`}
                         >
-                          {post.published ? "Published" : "Draft"}
+                          {post.published ? t('dashboard.published') : t('dashboard.draft')}
                         </span>
                       </div>
                     </div>

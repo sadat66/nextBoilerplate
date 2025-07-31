@@ -1,12 +1,16 @@
 "use client"
 
 import { useSession } from "next-auth/react"
+import { useTranslations, useLocale } from 'next-intl'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { LanguageSwitcher } from "@/components/language-switcher"
 import { ArrowRight, CheckCircle, Code, Database, Lock, Palette, Zap, Github } from "lucide-react"
 
 export default function Home() {
   const { data: session } = useSession()
+  const t = useTranslations()
+  const locale = useLocale()
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -20,20 +24,21 @@ export default function Home() {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
               {session ? (
                 <Button asChild>
-                  <Link href="/dashboard">
-                    Dashboard
+                  <Link href={`/${locale}/dashboard`}>
+                    {t('navigation.dashboard')}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               ) : (
                 <div className="flex space-x-2">
                   <Button variant="outline" asChild>
-                    <Link href="/auth/signin">Sign In</Link>
+                    <Link href={`/${locale}/auth/signin`}>{t('auth.signIn')}</Link>
                   </Button>
                   <Button asChild>
-                    <Link href="/auth/signup">Get Started</Link>
+                    <Link href={`/${locale}/auth/signup`}>{t('auth.signUp')}</Link>
                   </Button>
                 </div>
               )}
@@ -59,7 +64,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {!session && (
                 <Button size="lg" asChild>
-                  <Link href="/auth/signup">
+                  <Link href={`/${locale}/auth/signup`}>
                     Get Started Free
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -163,7 +168,7 @@ export default function Home() {
           </p>
           {!session && (
             <Button size="lg" variant="secondary" asChild>
-              <Link href="/auth/signup">
+              <Link href={`/${locale}/auth/signup`}>
                 Get Started Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>

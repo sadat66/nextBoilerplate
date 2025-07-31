@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations, useLocale } from 'next-intl'
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,6 +23,8 @@ export function SigninForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const t = useTranslations()
+  const locale = useLocale()
 
   const {
     register,
@@ -43,14 +46,14 @@ export function SigninForm() {
       })
 
       if (result?.error) {
-        setError("Invalid credentials")
+        setError(t('auth.invalidCredentials'))
       } else {
-        router.push("/dashboard")
+        router.push(`/${locale}/dashboard`)
         router.refresh()
       }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_error) {
-      setError("An error occurred. Please try again.")
+      setError(t('errors.somethingWentWrong'))
     } finally {
       setIsLoading(false)
     }
@@ -59,14 +62,14 @@ export function SigninForm() {
   return (
     <div className="mx-auto max-w-sm space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Sign In</h1>
+        <h1 className="text-3xl font-bold">{t('auth.signIn')}</h1>
         <p className="text-gray-500 dark:text-gray-400">
-          Enter your email and password to sign in to your account
+          {t('auth.signInToYourAccount')}
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t('auth.email')}</Label>
           <Input
             id="email"
             type="email"
@@ -78,7 +81,7 @@ export function SigninForm() {
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t('auth.password')}</Label>
           <Input
             id="password"
             type="password"
@@ -92,13 +95,13 @@ export function SigninForm() {
           <div className="text-sm text-red-500 text-center">{error}</div>
         )}
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Signing in..." : "Sign In"}
+          {isLoading ? t('common.loading') : t('auth.signIn')}
         </Button>
       </form>
       <div className="text-center text-sm">
-        Don&apos;t have an account?{" "}
-        <Link href="/auth/signup" className="underline">
-          Sign up
+        {t('auth.dontHaveAccount')}{" "}
+        <Link href={`/${locale}/auth/signup`} className="underline">
+          {t('auth.signUp')}
         </Link>
       </div>
     </div>

@@ -68,7 +68,5 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
-  pages: {
-    signIn: "/auth/signin",
-  },
+  // Remove hardcoded signin page to allow middleware to handle locale-aware redirects
 }

@@ -1,0 +1,67 @@
+{
+  "common": {
+    "welcome": "Willkommen",
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "success": "Erfolg",
+    "user": "Benutzer",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "submit": "Absenden",
+    "close": "Schließen"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "signOut": "Abmelden"
+  },
+  "auth": {
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "name": "Name",
+    "confirmPassword": "Passwort bestätigen",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Haben Sie kein Konto?",
+    "hasAccount": "Haben Sie bereits ein Konto?",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "createYourAccount": "Erstellen Sie ein neues Konto, um zu beginnen",
+    "accountCreated": "Ihr Konto wurde erstellt. Weiterleitung zur Anmeldung...",
+    "invalidCredentials": "Ungültige Anmeldedaten",
+    "loginSuccess": "Anmeldung erfolgreich",
+    "enterYourCredentials": "Geben Sie Ihre Anmeldedaten ein, um auf Ihr Konto zuzugreifen"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen in Ihrem Dashboard",
+    "welcomeBack": "Willkommen zurück, {name}",
+    "todayOverview": "Hier ist, was heute mit Ihrem Konto passiert",
+    "totalUsers": "Gesamte Benutzer",
+    "totalPosts": "Gesamte Beiträge",
+    "yourPosts": "Ihre Beiträge",
+    "recentPosts": "Neueste Beiträge",
+    "latestPosts": "Ihre neuesten Blog-Beiträge und Updates",
+    "noPosts": "Noch keine Beiträge. Erstellen Sie Ihren ersten Beitrag!",
+    "published": "Veröffentlicht",
+    "draft": "Entwurf",
+    "overview": "Übersicht",
+    "recentActivity": "Letzte Aktivität",
+    "statistics": "Statistiken",
+    "quickActions": "Schnellaktionen"
+  },
+  "errors": {
+    "pageNotFound": "Seite nicht gefunden",
+    "somethingWentWrong": "Etwas ist schief gelaufen",
+    "tryAgain": "Erneut versuchen",
+    "goHome": "Zur Startseite"
+  }
+}

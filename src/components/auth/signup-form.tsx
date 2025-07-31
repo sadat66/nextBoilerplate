@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations, useLocale } from 'next-intl'
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -27,6 +28,8 @@ export function SignupForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const router = useRouter()
+  const t = useTranslations()
+  const locale = useLocale()
 
   const {
     register,
@@ -56,7 +59,7 @@ export function SignupForm() {
       if (response.ok) {
         setSuccess(true)
         setTimeout(() => {
-          router.push("/auth/signin")
+          router.push(`/${locale}/auth/signin`)
         }, 2000)
       } else {
         const errorData = await response.json()
@@ -74,9 +77,9 @@ export function SignupForm() {
     return (
       <div className="mx-auto max-w-sm space-y-6 text-center">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-green-600">Success!</h1>
+          <h1 className="text-3xl font-bold text-green-600">{t('common.success')}!</h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Your account has been created. Redirecting to sign in...
+            {t('auth.accountCreated')}
           </p>
         </div>
       </div>
@@ -86,14 +89,14 @@ export function SignupForm() {
   return (
     <div className="mx-auto max-w-sm space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Sign Up</h1>
+        <h1 className="text-3xl font-bold">{t('auth.signUp')}</h1>
         <p className="text-gray-500 dark:text-gray-400">
-          Create a new account to get started
+          {t('auth.createYourAccount')}
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">{t('auth.name')}</Label>
           <Input
             id="name"
             type="text"
@@ -105,7 +108,7 @@ export function SignupForm() {
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t('auth.email')}</Label>
           <Input
             id="email"
             type="email"
@@ -117,7 +120,7 @@ export function SignupForm() {
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t('auth.password')}</Label>
           <Input
             id="password"
             type="password"
@@ -128,7 +131,7 @@ export function SignupForm() {
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Label htmlFor="confirmPassword">{t('auth.confirmPassword')}</Label>
           <Input
             id="confirmPassword"
             type="password"
@@ -142,13 +145,13 @@ export function SignupForm() {
           <div className="text-sm text-red-500 text-center">{error}</div>
         )}
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Creating account..." : "Sign Up"}
+          {isLoading ? t('common.loading') : t('auth.signUp')}
         </Button>
       </form>
       <div className="text-center text-sm">
-        Already have an account?{" "}
-        <Link href="/auth/signin" className="underline">
-          Sign in
+        {t('auth.alreadyHaveAccount')}{" "}
+        <Link href={`/${locale}/auth/signin`} className="underline">
+          {t('auth.signIn')}
         </Link>
       </div>
     </div>
