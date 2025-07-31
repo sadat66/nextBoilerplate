@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
 import { prisma } from "@/lib/prisma"
+import { sanitizeForDatabase, sanitizeEmail } from "@/lib/sanitize"
 
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -12,7 +13,12 @@ const signupSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, password } = signupSchema.parse(body)
+    const validatedData = signupSchema.parse(body)
+    
+    // Sanitize inputs beyond validation
+    const name = sanitizeForDatabase(validatedData.name)
+    const email = sanitizeEmail(validatedData.email)
+    const password = validatedData.password // Password doesn't need sanitization as it will be hashed
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({

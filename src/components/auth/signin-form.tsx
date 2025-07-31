@@ -10,6 +10,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { sanitizeEmail } from "@/lib/sanitize"
 import Link from "next/link"
 
 const signinSchema = z.object({
@@ -40,8 +41,8 @@ export function SigninForm() {
 
     try {
       const result = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
+        email: sanitizeEmail(data.email),
+        password: data.password, // Password doesn't need sanitization as it will be hashed
         redirect: false,
       })
 

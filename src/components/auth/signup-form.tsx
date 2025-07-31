@@ -9,6 +9,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { sanitizeForDatabase, sanitizeEmail } from "@/lib/sanitize"
 import Link from "next/link"
 
 const signupSchema = z.object({
@@ -50,9 +51,9 @@ export function SignupForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
+          name: sanitizeForDatabase(data.name),
+          email: sanitizeEmail(data.email),
+          password: data.password, // Password doesn't need sanitization as it will be hashed
         }),
       })
 
