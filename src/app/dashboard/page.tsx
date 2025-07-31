@@ -3,9 +3,9 @@ import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
-import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { LogOut, Plus, User, Settings } from "lucide-react"
+import { SignOutButton } from "@/components/auth/sign-out-button"
 import { Post } from "@prisma/client"
 
 export default async function DashboardPage() {
@@ -46,12 +46,7 @@ export default async function DashboardPage() {
                   {user?.name || user?.email}
                 </span>
               </div>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/auth/signin" onClick={() => signOut()}>
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </Link>
-              </Button>
+              <SignOutButton />
             </div>
           </div>
         </div>
